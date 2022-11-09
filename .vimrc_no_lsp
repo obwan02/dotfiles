@@ -16,14 +16,6 @@ Plug 'ibhagwan/fzf-lua', {'branch': 'main'}
 
 Plug 'sheerun/vim-polyglot' " Provides basic syntax highlighting for filetypes without language server and built in syntax support (mainly obscure filtypes such as fish scripts)
 
-Plug 'williamboman/nvim-lsp-installer'
-Plug 'neovim/nvim-lspconfig'
-Plug 'hrsh7th/nvim-cmp' " Autocompletion plugin
-Plug 'L3MON4D3/LuaSnip' " For snippet engine
-Plug 'hrsh7th/cmp-nvim-lsp' " LSP source for nvim-cmp
-Plug 'hrsh7th/cmp-path' " Path completion for nvim-cmp
-Plug 'simrat39/rust-tools.nvim' " Rust specific plugin for LSP
-
 Plug 'feline-nvim/feline.nvim'
 Plug 'tpope/vim-eunuch'
 Plug 'catppuccin/nvim', {'as': 'catppuccin'}
@@ -43,192 +35,51 @@ require'fzf-lua'.setup {
   files = { git_icons = false },
 }
 
-
-local lsp_installer = require("nvim-lsp-installer")
-local lspconfig = require("lspconfig")
-
-lsp_installer.setup {}
-
-lspconfig.util.default_config = vim.tbl_extend(
-"force",
-lspconfig.util.default_config,
-{
-	-- Add additional capabilities supported by nvim-cmp
-	capabilities = require('cmp_nvim_lsp').update_capabilities(
-	vim.lsp.protocol.make_client_capabilities()	
-	),
-	on_attach = function(client, bufnr)
-	vim.api.nvim_exec_autocmds('User', {pattern = 'LspAttached'})
-	end
-}
-)
-
-for _, server in ipairs(lsp_installer.get_installed_servers()) do
-	lspconfig[server.name].setup({})
-end
-
-require('luasnip.loaders.from_vscode').lazy_load()
-vim.opt.completeopt = {'menu', 'menuone', 'noselect'}
-
--- nvim-cmp setup
-local cmp = require 'cmp'
-local luasnip = require('luasnip')
-cmp.setup {
-	snippet = {
-		expand = function(args)
-			luasnip.lsp_expand(args.body)
-		end
-	},
-	mapping = cmp.mapping.preset.insert({
-	['<CR>'] = cmp.mapping.confirm {
-		behavior = cmp.ConfirmBehavior.Replace,
-		select = true,
-	},
-	['<C-Down>'] = cmp.mapping(function(fallback)
-		if cmp.visible() then
-			cmp.select_next_item()
-		else
-			fallback ()
-		end
-		end, { 'i', 's' }),
-	['<C-Up>'] = cmp.mapping(function(fallback)
-		if cmp.visible() then
-			cmp.select_prev_item()
-		else
-			fallback()
-		end
-		end, { 'i', 's' }),
-	}),
-	sources = {
-		{ name = 'nvim_lsp' },
-		{ name = 'luasnip' },
-		{ name = 'path' },
-	},
-	window = {
-		documentation = cmp.config.window.bordered()
-	},
-}
-
-require('rust-tools').setup({})
-
-local catppuccin = require('catppuccin')
-catppuccin.setup({
-	transparent_background = false,
-	term_colors = true,
-	styles = {
-		comments = "italic",
-		conditionals = "italic",
-		loops = "NONE",
-		functions = "NONE",
-		keywords = "NONE",
-		strings = "NONE",
-		variables = "NONE",
-		numbers = "NONE",
-		booleans = "NONE",
-		properties = "NONE",
-		types = "NONE",
-		operators = "NONE",
-	},
-	integrations = {
-		treesitter = true,
-		native_lsp = {
-			enabled = true,
-			virtual_text = {
-				errors = "italic",
-				hints = "italic",
-				warnings = "italic",
-				information = "italic",
-			},
-			underlines = {
-				errors = "underline",
-				hints = "underline",
-				warnings = "underline",
-				information = "underline",
-			},
-		},
-		lsp_trouble = false,
-		cmp = true,
-		lsp_saga = false,
-		gitgutter = false,
-		gitsigns = true,
-		telescope = true,
-		nvimtree = {
-			enabled = false,
-			show_root = false,
-			transparent_panel = false,
-		},
-		neotree = {
-			enabled = true,
-			show_root = false,
-			transparent_panel = true,
-		},
-		which_key = false,
-		indent_blankline = {
-			enabled = false,
-			colored_indent_levels = false,
-		},
-		dashboard = true,
-		neogit = false,
-		vim_sneak = false,
-		fern = false,
-		barbar = false,
-		bufferline = false,
-		markdown = true,
-		lightspeed = false,
-		ts_rainbow = false,
-		hop = false,
-		notify = false,
-		telekasten = false,
-		symbols_outline = false,
-	}
+require("catppuccin").setup({
+    flavour = "mocha", -- latte, frappe, macchiato, mocha
+    background = { -- :h background
+        light = "latte",
+        dark = "mocha",
+    },
+    compile_path = vim.fn.stdpath("cache") .. "/catppuccin",
+    transparent_background = false,
+    term_colors = false,
+    dim_inactive = {
+        enabled = false,
+        shade = "dark",
+        percentage = 0.15,
+    },
+    styles = {
+        comments = { "italic" },
+        conditionals = { "italic" },
+        loops = {},
+        functions = {},
+        keywords = {},
+        strings = {},
+        variables = {},
+        numbers = {},
+        booleans = {},
+        properties = {},
+        types = {},
+        operators = {},
+    },
+    color_overrides = {},
+    custom_highlights = {},
+    integrations = {
+        cmp = true,
+        gitsigns = true,
+        nvimtree = true,
+        telescope = true,
+        treesitter = true,
+        -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
+    },
 })
+
+local ctp_feline = require('catppuccin.groups.integrations.feline')
 
 require("feline").setup({
-components = require('catppuccin.core.integrations.feline'),
+	components = ctp_feline.get(),
 })
-
-local signs = {
-  { name = "DiagnosticSignError", text = "" },
-  { name = "DiagnosticSignWarn", text = "" },
-  { name = "DiagnosticSignHint", text = "" },
-  { name = "DiagnosticSignInfo", text = "" },
-}
-
-for _, sign in ipairs(signs) do
-  vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
-end
-
-local config = {
-  -- disable virtual text (virtual text is the text that appears near an error)
-  virtual_text = false,
-  -- show signs
-  signs = {
-    active = signs,
-  },
-  update_in_insert = true,
-  underline = true,
-  severity_sort = true,
-  float = {
-    focusable = false,
-	style = "minimal",
-	border = "rounded"
-  }
-}
-
-vim.diagnostic.config(config)
-
-function LspDiagnosticsFocus()
-    vim.api.nvim_command('set eventignore=WinLeave')
-    vim.api.nvim_command('autocmd CursorMoved <buffer> ++once set eventignore=""')
-	local _, win_id = vim.diagnostic.open_float(nil, {focusable = false, scope = 'line', close_events = {"CursorMoved", "CursorMovedI", "BufHidden", "InsertCharPre", "WinLeave"}})
-	if (win_id ~= nil) then
-	    vim.api.nvim_command('hi! def link NormalFloat Normal')
-	end
-end
-
--- Show error when hovering over error message
-vim.api.nvim_command('autocmd CursorHold * lua LspDiagnosticsFocus()')
-vim.api.nvim_set_keymap('n', '<leader>d', '<Cmd>lua LspDiagnosticsFocus()<CR>', {silent = true})
 
 require'nvim-treesitter.configs'.setup {
 	highlight = {
