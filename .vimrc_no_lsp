@@ -16,8 +16,11 @@ Plug 'ibhagwan/fzf-lua', {'branch': 'main'}
 
 Plug 'sheerun/vim-polyglot' " Provides basic syntax highlighting for filetypes without language server and built in syntax support (mainly obscure filtypes such as fish scripts)
 
+Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'feline-nvim/feline.nvim'
 Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-commentary'
 Plug 'catppuccin/nvim', {'as': 'catppuccin'}
 Plug 'glepnir/dashboard-nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -131,22 +134,9 @@ set nowritebackup
 " You will have bad experience for diagnostic messages when it's default 4000.
 " (coc.vim)
 set updatetime=300
-
-" Set spelling language
 set spelllang=en_nz
-
-" Set internal encoding of vim, not needed on neovim, since coc.nvim using some
-" unicode characters in the file autoload/float.vim
 set encoding=utf-8
-
-" TextEdit might fail if hidden is not set.
 set hidden
-
-" Formats a file with clang-format
-function! CXXFormatFile()
-	let l:lines = "all"
-	py3f /usr/share/clang/clang-format-10/clang-format.py
-endfunction
 
 set signcolumn=number
 set tabstop=4
@@ -154,11 +144,13 @@ set softtabstop=4
 set shiftwidth=4
 set noexpandtab
 set autoindent
-set number
+set relativenumber
 set autoread
 set keywordprg=:Man 
 let mapleader=","
 set nohlsearch
+set clipboard=unnamedplus
+set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
 
 let g:catppuccin_flavour = "dusk"
 colorscheme catppuccin
@@ -172,33 +164,44 @@ nnoremap <C-j> o<Esc>k
 " Shortcut for neotree
 nnoremap <leader>x :Neotree filesystem reveal=false float<CR>
 nnoremap <leader>X :Neotree filesystem reveal=true left<CR>
-
 " Ripgrep for text searcing files using fzf
 nnoremap <leader>ss :lua require("fzf-lua").grep_project()<CR>
-
 " Spellcheck
 nnoremap <leader>sc :setlocal spell!<CR>
-
 " for highlighting searches
 nnoremap <leader>hs :set hlsearch!<CR>
-
-" Templates for various languages
-nnoremap <silent> <leader>tp ggO#!/usr/bin/env python3<CR><CR>if __name__ == "__main__":<CR>pass<Esc><C-o>
-
 " Shortcut to edit .vimrc
 nnoremap <leader>ev :vsplit ~/.vimrc<CR>
-
-
 " Remap Shift-Tab to exit insert mode
 inoremap <S-Tab> <Esc>
 noremap <S-Tab> <Esc>
-" Abbreviations
-" iabbrev ssig obwan02 - obwan02@hotmail.co.nz
+" Remap shift-A in visual mode to work as expected always
+vnoremap <expr> <S-a> mode() ==# "V" ? "<C-v>$<S-a>" : "<S-a>"
+vnoremap <expr> <S-i> mode() ==# "V" ? "<C-v>^<S-i>" : "<S-i>"
+
+function TemplateCompletion(...) 
+	return map(glob("~/.nvim-templates/*", 1, 1), 'fnamemodify(v:val, ":t")')
+endfunction
+
+command -nargs=1 -complete=customlist,TemplateCompletion Template :execute 'normal ggdG' | r ~/.nvim-templates/<args> | normal ggdd
+
+
+autocmd BufNewFile,BufRead * :IndentBlanklineDisable
+autocmd BufNewFile,BufReadPost *.yaml,*.md :IndentBlanklineEnable
+autocmd BufWritePre * silent lua vim.lsp.buf.format()
 
 autocmd! BufNewFile,BufRead *.shader set ft=glsl
-autocmd Filetype c,go setlocal cin
+autocmd Filetype c,cpp setlocal cin tabstop=2 shiftwidth=2 softtabstop=2
+autocmd Filetype c,cpp,go setlocal cin
 autocmd Filetype python setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
 autocmd Filetype json,html setlocal tabstop=2 shiftwidth=2 softtabstop=2
+autocmd Filetype yaml,markdown setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2 tw=60
+autocmd Filetype haskell setlocal expandtab 
+
+autocmd BufWritePre *.md,*.markdown,*.yaml,*.yml retab
+
+" For some reason this is needed?
+autocmd BufNewFile,BufRead * setlocal number
 
 " For Neovide
 let g:neovide_cursor_vfx_mode = "railgun"
