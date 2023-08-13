@@ -124,7 +124,7 @@ db.custom_center = {
 
 EOF
 
-" Some servers have issues with backup files, see #649
+" Some servers have issues with backup files, see #649 (coc)
 set nobackup
 set nowritebackup
 
@@ -191,12 +191,9 @@ nnoremap <leader>ev :vsplit ~/.vimrc<CR>
 
 " Remap Shift-Tab to exit insert mode
 inoremap <S-Tab> <Esc>
-vnoremap <S-Tab> <Esc>
+noremap <S-Tab> <Esc>
 " Abbreviations
 " iabbrev ssig obwan02 - obwan02@hotmail.co.nz
-
-" For quick diagnostics
-command CD CocDiagnostics
 
 autocmd! BufNewFile,BufRead *.shader set ft=glsl
 autocmd Filetype c,go setlocal cin
