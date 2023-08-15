@@ -42,10 +42,26 @@
 
 (use-package org
   :ensure t
+  :after evil
   :config
   (progn
     (setq org-todo-keywords
-	  '((sequence "TODO" "PROG" "WAIT" "|" "DONE" "CANCELLED")))))
+	  '((sequence "TODO" "PROG" "WAIT" "|" "DONE" "CANCELLED")))
+    (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.35))
+    (evil-define-key 'normal org-mode-map (kbd "<tab>") #'org-cycle)
+    ;; Setup LaTeX Exporting
+    (setq org-latex-pdf-process '("latexmk -f -pdf -%latex -shell-escape -interaction=nonstopmode -output-directory=%o %f"))
+    ;; Setup Code Blocks Langs
+    (org-babel-do-load-languages
+     'org-babel-load-languages
+     '((python . t)
+       (emacs-lisp . t)))))
+
+(use-package org-download
+  :ensure t
+  :after (org)
+  :config (progn
+	    (setq org-download-method 'attach)))
 
 (use-package tree-sitter
   :ensure t)
@@ -59,7 +75,6 @@
 
 ;; --- CONFIG ---
 
-;; Org Mode
 ;; WINDOW ONLY - PLZ CHANGE IF NOT WINDOWS
 (setq org-agenda-files '("C:\\Users\\obwan\\OneDrive\\OrgMode"))
 
@@ -79,7 +94,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages '(tree-sitter-langs tree-sitter evil-visual-mark-mode)))
+ '(package-selected-packages
+   '(org-download tree-sitter-langs tree-sitter evil-visual-mark-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
