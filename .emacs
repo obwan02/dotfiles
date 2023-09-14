@@ -76,6 +76,11 @@
             ("" "hyperref" nil)))
     (setq org-latex-listings 'minted)
     (setq org-latex-packages-alist '(("" "minted")))
+    (setq org-latex-minted-options
+	  '(("frame" "lines")
+	    ("fontsize" "\\scriptsize")
+	    ("linenos" "")
+	    ))
     (setq org-preview-latex-process-alist
 	  '((dvisvgm :programs
 		     ("latex" "dvisvgm")
