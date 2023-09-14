@@ -93,6 +93,8 @@
 		     ("dvisvgm %f -n -b min -c %S -o %O"))
 	    )
 	  )
+    ;; Insert page break after table of contents
+    (setq org-latex-toc-command "\\tableofcontents \\clearpage")
     (setq org-latex-create-formula-image-program 'dvisvgm)
     (setq org-latex-pdf-process '("latexmk -f -shell-escape -pdf -%latex -interaction=nonstopmode -output-directory=%o %f"))
     (setq org-latex-classes
