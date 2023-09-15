@@ -97,8 +97,10 @@
     (setq org-latex-toc-command "\\tableofcontents \\clearpage")
     (setq org-latex-create-formula-image-program 'dvisvgm)
     (setq org-latex-pdf-process '("latexmk -f -shell-escape -pdf -%latex -interaction=nonstopmode -output-directory=%o %f"))
+'(("notes" "\\documentclass[11pt]{article}"
+      ("\\section{%s}" . "\\section*{%s}"))
     (setq org-latex-classes
-		 '(("article" "\\RequirePackage{fix-cm}
+		 '(("notes" "\\RequirePackage{fix-cm}
 \\PassOptionsToPackage{svgnames}{xcolor}
 \\documentclass[11pt]{article}
 \\usepackage{fontspec}
@@ -126,7 +128,25 @@
                    ("\\subsubsubsection{%s}" . "\\subsubsubsection*{%s}")
 		   ("\\paragraph{%s}" . "\\paragraph*{%s}")
 		   ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
-		   ))
+		 ("article" "\\documentclass[11pt]{article}"
+		  ("\\section{%s}" . "\\section*{%s}")
+		  ("\\subsection{%s}" . "\\subsection*{%s}")
+		  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+		  ("\\paragraph{%s}" . "\\paragraph*{%s}")
+		  ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
+		 ("report" "\\documentclass[11pt]{report}"
+		  ("\\part{%s}" . "\\part*{%s}")
+		  ("\\chapter{%s}" . "\\chapter*{%s}")
+		  ("\\section{%s}" . "\\section*{%s}")
+		  ("\\subsection{%s}" . "\\subsection*{%s}")
+		  ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))
+		 ("book" "\\documentclass[11pt]{book}"
+		  ("\\part{%s}" . "\\part*{%s}")
+		  ("\\chapter{%s}" . "\\chapter*{%s}")
+		  ("\\section{%s}" . "\\section*{%s}")
+		  ("\\subsection{%s}" . "\\subsection*{%s}")
+		  ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))
+		 ))
     ;; Setup Code Blocks Langs
     (setq org-confirm-babel-evaluate nil)
     (setq org-babel-python-command "python3")
@@ -174,6 +194,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(org-latex-classes
+   )
  '(package-selected-packages '(org-download htmlize helm evil-visual-mark-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
