@@ -30,9 +30,13 @@
 
 ;; --- PACKAGES ---
 
+
+;; Used for producing 'nice'
+;; html output from org-mode
 (use-package htmlize
   :ensure t)
 
+;; Evil-Mode for Vim style editing
 (use-package evil
   :demand t
   :ensure t
@@ -41,14 +45,24 @@
 	 ;; Requires Emacs >= 28
 	 (evil-set-undo-system 'undo-redo)))
 
-(use-package helm
+;; Mini-buffer completion
+(use-package vertico
   :ensure t
-  :bind (("M-x" . helm-M-x)
-	 ("C-x b" . helm-buffers-list)
-	 ("C-x r b" . helm-bookmarks)
-	 ("C-x C-f" . helm-find-files)
-	 ("C-x C-l" . helm-locate)
-	 ("C-x M-s o" . helm-occur)))
+  :init (vertico-mode)
+  )
+
+;; Used for annotations in the Emacs
+;; mini-buffer
+(use-package marginalia
+  :ensure t
+  ;; Bind `marginalia-cycle' locally in the minibuffer.  To make the binding
+  ;; available in the *Completions* buffer, add it to the
+  ;; `completion-list-mode-map'.
+  :bind (:map minibuffer-local-map
+         ("M-A" . marginalia-cycle))
+
+  :init
+  (marginalia-mode))
 
 (use-package org
   :ensure t
@@ -151,7 +165,8 @@
     (org-babel-do-load-languages
      'org-babel-load-languages
      '((python . t)
-       (emacs-lisp . t)))
+       (emacs-lisp . t)
+       (shell . t)))
     )
 
 (use-package org-download
@@ -161,20 +176,18 @@
 	    (setq org-download-method 'attach))
   )
 
-;; (use-package tree-sitter
-  ;; :ensure t)
-;; 
-;; (use-package tree-sitter-langs
-  ;; :ensure t
-  ;; :after (tree-sitter)
-  ;; :config (progn
-	    ;; (global-tree-sitter-mode)
-	    ;; (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)))
-
 ;; --- CONFIG ---
 
-;; WINDOW ONLY - PLZ CHANGE IF NOT WINDOWS
-(setq org-agenda-files '("C:\\Users\\obwan\\OneDrive\\OrgMode"))
+;; OS Dependent
+(pcase system-type
+  ;; Windows
+  ('windows-nt (setq org-agenda-files '("C:\\Users\\obwan\\OneDrive\\OrgMode")))
+
+  ;; Linux
+  ('gnu/linux (setq org-agenda-files '("~/OneDrive/OrgMode")))
+
+  ;; MacOS
+  ('darwin (message "Setup OneDrive for macOS dummy")))      
 
 (defun my-asm-mode-hook ()
   ;; you can use `comment-dwim' (M-;) for this kind of behaviour anyway
@@ -192,7 +205,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages '(org-download htmlize helm evil-visual-mark-mode)))
+ '(package-selected-packages '(marginalia org-download helm evil htmlize)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
