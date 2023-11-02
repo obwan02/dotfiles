@@ -28,7 +28,7 @@ require('packer').startup(function(use)
 		requires = { "nvim-tree/nvim-web-devicons" }
 	}	
 
-	-- Shows indentation - can set it up so that it only shows
+-- Shows indentation - can set it up so that it only shows
 	-- on certain file type
 	use 'lukas-reineke/indent-blankline.nvim'
 
@@ -45,7 +45,12 @@ require('packer').startup(function(use)
 	use 'tpope/vim-commentary'
 
 	-- Catppuccin colorscheme
-	use {'catppuccin/nvim', as = 'catppuccin'}
+	-- use {'catppuccin/nvim', as = 'catppuccin'}
+		
+	-- Jelly beans colortheme
+	use 'rktjmp/lush.nvim'
+	use 'metalelf0/jellybeans-nvim'
+
 
 	-- TODO: Add alpha dashboard
 
@@ -72,25 +77,26 @@ end)
 
 require("ibl").setup {
     -- for example, context is off by default, use this to turn it on
-    show_current_context = true,
-    show_current_context_start = true,
+    -- show_current_context = true,
+    -- show_current_context_start = true,
 }
 
-require("catppuccin").setup({
-    flavour = "mocha", -- latte, frappe, macchiato, mocha
-    integrations = {
-        cmp = true,
-        gitsigns = true,
-        nvimtree = true,
-        telescope = true,
-        treesitter = true,
-    },
-})
-vim.cmd('colorscheme catppuccin')
+-- require("catppuccin").setup({
+--     flavour = "mocha", -- latte, frappe, macchiato, mocha
+--     integrations = {
+--         cmp = true,
+--         gitsigns = true,
+--         nvimtree = true,
+--         telescope = true,
+--         treesitter = true,
+--     },
+-- })
+
+vim.cmd('colorscheme jellybeans-nvim')
 
 -- Feline status bar + catppuccin integration
-local ctp_feline = require('catppuccin.groups.integrations.feline')
-require('feline').setup { components = ctp_feline.get() }
+-- local ctp_feline = require('catppuccin.groups.integrations.feline')
+-- require('feline').setup { components = ctp_feline.get() }
 
 -- Tree sitter setup
 require 'nvim-treesitter.configs'.setup {
