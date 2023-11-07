@@ -49,7 +49,7 @@ require('packer').startup(function(use)
 		
 	-- Jelly beans colortheme
 	use 'rktjmp/lush.nvim'
-	use 'metalelf0/jellybeans-nvim'
+	use 'obwan02/jellybeans2-nvim'
 
 
 	-- TODO: Add alpha dashboard
@@ -92,7 +92,7 @@ require("ibl").setup {
 --     },
 -- })
 
-vim.cmd('colorscheme jellybeans-nvim')
+vim.cmd('colorscheme jellybeans2-nvim')
 
 -- Feline status bar + catppuccin integration
 -- local ctp_feline = require('catppuccin.groups.integrations.feline')
@@ -100,7 +100,10 @@ vim.cmd('colorscheme jellybeans-nvim')
 
 -- Tree sitter setup
 require 'nvim-treesitter.configs'.setup {
-	highlight = { enable = true } 
+	highlight = { 
+		enable = true,
+		addtional_vim_regex_highlighting = false
+	} 
 }
 
 local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
