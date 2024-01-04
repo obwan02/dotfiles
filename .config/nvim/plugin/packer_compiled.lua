@@ -49,8 +49,8 @@ local function save_profiles(threshold)
 end
 
 time([[Luarocks path setup]], true)
-local package_path_str = "/home/obwan02/.cache/nvim/packer_hererocks/2.1.1694285958/share/lua/5.1/?.lua;/home/obwan02/.cache/nvim/packer_hererocks/2.1.1694285958/share/lua/5.1/?/init.lua;/home/obwan02/.cache/nvim/packer_hererocks/2.1.1694285958/lib/luarocks/rocks-5.1/?.lua;/home/obwan02/.cache/nvim/packer_hererocks/2.1.1694285958/lib/luarocks/rocks-5.1/?/init.lua"
-local install_cpath_pattern = "/home/obwan02/.cache/nvim/packer_hererocks/2.1.1694285958/lib/lua/5.1/?.so"
+local package_path_str = "C:\\Users\\obwan\\AppData\\Local\\Temp\\nvim\\packer_hererocks\\2.1.1694082368\\share\\lua\\5.1\\?.lua;C:\\Users\\obwan\\AppData\\Local\\Temp\\nvim\\packer_hererocks\\2.1.1694082368\\share\\lua\\5.1\\?\\init.lua;C:\\Users\\obwan\\AppData\\Local\\Temp\\nvim\\packer_hererocks\\2.1.1694082368\\lib\\luarocks\\rocks-5.1\\?.lua;C:\\Users\\obwan\\AppData\\Local\\Temp\\nvim\\packer_hererocks\\2.1.1694082368\\lib\\luarocks\\rocks-5.1\\?\\init.lua"
+local install_cpath_pattern = "C:\\Users\\obwan\\AppData\\Local\\Temp\\nvim\\packer_hererocks\\2.1.1694082368\\lib\\lua\\5.1\\?.so"
 if not string.find(package.path, package_path_str, 1, true) then
   package.path = package.path .. ';' .. package_path_str
 end
@@ -76,92 +76,97 @@ time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
   LuaSnip = {
     loaded = true,
-    path = "/home/obwan02/.local/share/nvim/site/pack/packer/start/LuaSnip",
+    path = "C:\\Users\\obwan\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\LuaSnip",
     url = "https://github.com/L3MON4D3/LuaSnip"
-  },
-  catppuccin = {
-    loaded = true,
-    path = "/home/obwan02/.local/share/nvim/site/pack/packer/start/catppuccin",
-    url = "https://github.com/catppuccin/nvim"
   },
   ["cmp-nvim-lsp"] = {
     loaded = true,
-    path = "/home/obwan02/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp",
+    path = "C:\\Users\\obwan\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\cmp-nvim-lsp",
     url = "https://github.com/hrsh7th/cmp-nvim-lsp"
   },
   ["feline.nvim"] = {
     loaded = true,
-    path = "/home/obwan02/.local/share/nvim/site/pack/packer/start/feline.nvim",
+    path = "C:\\Users\\obwan\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\feline.nvim",
     url = "https://github.com/feline-nvim/feline.nvim"
   },
   ["fzf-lua"] = {
     loaded = true,
-    path = "/home/obwan02/.local/share/nvim/site/pack/packer/start/fzf-lua",
+    path = "C:\\Users\\obwan\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\fzf-lua",
     url = "https://github.com/ibhagwan/fzf-lua"
   },
   ["indent-blankline.nvim"] = {
     loaded = true,
-    path = "/home/obwan02/.local/share/nvim/site/pack/packer/start/indent-blankline.nvim",
+    path = "C:\\Users\\obwan\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\indent-blankline.nvim",
     url = "https://github.com/lukas-reineke/indent-blankline.nvim"
+  },
+  ["jellybeans2-nvim"] = {
+    loaded = true,
+    path = "C:\\Users\\obwan\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\jellybeans2-nvim",
+    url = "https://github.com/obwan02/jellybeans2-nvim"
+  },
+  ["lush.nvim"] = {
+    loaded = true,
+    path = "C:\\Users\\obwan\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\lush.nvim",
+    url = "https://github.com/rktjmp/lush.nvim"
   },
   ["neo-tree.nvim"] = {
     loaded = true,
-    path = "/home/obwan02/.local/share/nvim/site/pack/packer/start/neo-tree.nvim",
+    path = "C:\\Users\\obwan\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\neo-tree.nvim",
     url = "https://github.com/nvim-neo-tree/neo-tree.nvim"
   },
   ["nui.nvim"] = {
     loaded = true,
-    path = "/home/obwan02/.local/share/nvim/site/pack/packer/start/nui.nvim",
+    path = "C:\\Users\\obwan\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nui.nvim",
     url = "https://github.com/MunifTanjim/nui.nvim"
   },
   ["nvim-cmp"] = {
     loaded = true,
-    path = "/home/obwan02/.local/share/nvim/site/pack/packer/start/nvim-cmp",
+    path = "C:\\Users\\obwan\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nvim-cmp",
     url = "https://github.com/hrsh7th/nvim-cmp"
   },
   ["nvim-lspconfig"] = {
     loaded = true,
-    path = "/home/obwan02/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
+    path = "C:\\Users\\obwan\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nvim-lspconfig",
     url = "https://github.com/neovim/nvim-lspconfig"
   },
   ["nvim-treesitter"] = {
     loaded = true,
-    path = "/home/obwan02/.local/share/nvim/site/pack/packer/start/nvim-treesitter",
+    path = "C:\\Users\\obwan\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nvim-treesitter",
     url = "https://github.com/nvim-treesitter/nvim-treesitter"
   },
   ["nvim-web-devicons"] = {
     loaded = true,
-    path = "/home/obwan02/.local/share/nvim/site/pack/packer/start/nvim-web-devicons",
+    path = "C:\\Users\\obwan\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nvim-web-devicons",
     url = "https://github.com/kyazdani42/nvim-web-devicons"
   },
   ["packer.nvim"] = {
     loaded = true,
-    path = "/home/obwan02/.local/share/nvim/site/pack/packer/start/packer.nvim",
+    path = "C:\\Users\\obwan\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\packer.nvim",
     url = "https://github.com/wbthomason/packer.nvim"
   },
   ["plenary.nvim"] = {
     loaded = true,
-    path = "/home/obwan02/.local/share/nvim/site/pack/packer/start/plenary.nvim",
+    path = "C:\\Users\\obwan\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\plenary.nvim",
     url = "https://github.com/nvim-lua/plenary.nvim"
   },
   ["rust-tools.nvim"] = {
     loaded = true,
-    path = "/home/obwan02/.local/share/nvim/site/pack/packer/start/rust-tools.nvim",
+    path = "C:\\Users\\obwan\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\rust-tools.nvim",
     url = "https://github.com/simrat39/rust-tools.nvim"
   },
   ["vim-commentary"] = {
     loaded = true,
-    path = "/home/obwan02/.local/share/nvim/site/pack/packer/start/vim-commentary",
+    path = "C:\\Users\\obwan\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-commentary",
     url = "https://github.com/tpope/vim-commentary"
   },
   ["vim-eunuch"] = {
     loaded = true,
-    path = "/home/obwan02/.local/share/nvim/site/pack/packer/start/vim-eunuch",
+    path = "C:\\Users\\obwan\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-eunuch",
     url = "https://github.com/tpope/vim-eunuch"
   },
   ["vim-fugitive"] = {
     loaded = true,
-    path = "/home/obwan02/.local/share/nvim/site/pack/packer/start/vim-fugitive",
+    path = "C:\\Users\\obwan\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-fugitive",
     url = "https://github.com/tpope/vim-fugitive"
   }
 }
