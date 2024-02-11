@@ -38,15 +38,22 @@ def main(repo_dir: Path, nvim_executable: Optional[Path]):
     else:
         eprint("Skipping .config/nvim symlink as path to nvim executable wasn't provided")
 
+    if os.name not in ['nt', 'posix']:
+        eprint("Unknown OS type :(, I only know about win32 and posix systems")
+        return
+
     symlink(Path.home() / '.vimrc', repo_dir / '.vimrc')
+
+
+    if os.name == "nt":
+        eprint("! I do not know the location of kitty config for windows :(( plz help")
+    else:
+        symlink(Path.home() / '.config' / 'kitty', repo_dir / '.config' / 'kitty')
 
     if os.name == "nt":
         symlink(Path.home() / 'AppData' / 'Roaming' / '.emacs', repo_dir / '.emacs')
-    elif os.name == "posix":
-        symlink(Path.home() / '.emacs', repo_dir / '.emacs')
     else:
-        eprint("Platform not supported :(")
-        exit(1)
+        symlink(Path.home() / '.emacs', repo_dir / '.emacs')
 
 if __name__ == "__main__":
     if (nvim_executable := shutil.which("nvim")) is None:
