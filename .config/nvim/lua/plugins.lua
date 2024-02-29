@@ -69,6 +69,9 @@ require('packer').startup(function(use)
 	-- Completions for nvim's lsp
 	use 'hrsh7th/cmp-nvim-lsp'
 
+	-- Image pasting for markdown
+	use 'dfendr/clipboard-image.nvim'
+
 	if packer_bootstrap then
 		require('packer').sync()
   	end
