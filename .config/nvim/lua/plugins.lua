@@ -72,6 +72,9 @@ require('packer').startup(function(use)
 	-- Image pasting for markdown
 	use 'dfendr/clipboard-image.nvim'
 
+	-- Lining up text
+	use 'godlygeek/tabular'
+
 	if packer_bootstrap then
 		require('packer').sync()
   	end
@@ -137,6 +140,10 @@ nvim_lsp.pylsp.setup{
 }
 nvim_lsp.gopls.setup{capabilities=capabilities}
 nvim_lsp.clangd.setup{capabilities=capabilities}
+nvim_lsp.tsserver.setup{
+	capabilities=capabilities,
+	single_file_support=true
+}
 
 -- Setup for rust tools: additional LSP stuff
 require 'rust-tools'.setup {
