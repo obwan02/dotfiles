@@ -144,6 +144,7 @@ nvim_lsp.tsserver.setup{
 	capabilities=capabilities,
 	single_file_support=true
 }
+nvim_lsp.zls.setup{capabilities=capabilities}
 
 -- Setup for rust tools: additional LSP stuff
 require 'rust-tools'.setup {
