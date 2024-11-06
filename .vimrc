@@ -53,7 +53,7 @@ endfunction
 command -nargs=1 -complete=customlist,TemplateCompletion Template :execute 'normal ggdG' | r ~/.vim-templates/<args> | normal ggdd
 
 autocmd! BufNewFile,BufRead *.shader set ft=glsl
-autocmd Filetype c,cpp setlocal cin tabstop=2 shiftwidth=2 softtabstop=2
+autocmd Filetype c,cpp setlocal cin tabstop=8 shiftwidth=8 softtabstop=8
 autocmd Filetype c,cpp,go setlocal cin
 autocmd Filetype python setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
 autocmd Filetype json,html setlocal tabstop=2 shiftwidth=2 softtabstop=2
